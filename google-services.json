@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "543713222320",
+    "firebase_url": "https://capstone-project-d1880.firebaseio.com",
+    "project_id": "capstone-project-d1880",
+    "storage_bucket": "capstone-project-d1880.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543713222320:android:cbd9bca41d88d72a",
+        "android_client_info": {
+          "package_name": "com.unknown.trivia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543713222320-7efpiqoii6ot6jsv7hvivsbbi3m2gvqe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB09JuuJ_m9EDYKi1drq7yP3lvWYxSSPMc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
