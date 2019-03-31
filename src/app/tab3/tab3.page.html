@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
       Tab Three
     </ion-title>
@@ -7,9 +7,41 @@
 </ion-header>
 
 <ion-content>
-  <div  class="ion-text-center">
-      <ion-button size="large" color="primary" routerDirection="root" routerLink="/login">
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-button size="large" color="primary" routerDirection="root" routerLink="/login">
           Go To Login
-      </ion-button>
-  </div>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-button color="light" (click)="auth.signOut()" routerDirection="root">Logout</ion-button>
+      </ion-col>
+    </ion-row>
+    <ng-container *ngIf="auth.user$ | async as user; else login">
+        <ion-row>
+          <ion-col class="ion-text-center">
+            <ion-button color="tertiary" (click)="consoleLog(user)">Log</ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-card>
+            <ion-card-header>
+              <ion-card-subtitle>UID: {{ user.uid || '000123456'}}</ion-card-subtitle>
+              <ion-card-title>{{ user.displayName  || 'Guest User'}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              Guest: {{ user.isAnonymous }}<br> Email: {{ user.email || 'unknown'}}
+            </ion-card-content>
+          </ion-card>
+    </ng-container>
+
+    <ng-template #login>
+      <div class="ion-text-center">
+        <ion-spinner color="primary"></ion-spinner>
+      </div>
+    </ng-template>
+
+  </ion-grid>
 </ion-content>
