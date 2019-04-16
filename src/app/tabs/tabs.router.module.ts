@@ -8,7 +8,7 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
+        path: 'lobbies',
         children: [
           {
             path: '',
@@ -17,7 +17,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'tab2',
+        path: 'questions',
         children: [
           {
             path: '',
@@ -26,7 +26,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'tab3',
+        path: 'profile',
         children: [
           {
             path: '',
@@ -36,7 +36,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/tab3',
+        redirectTo: '/tabs/profile',
         pathMatch: 'full'
       }
     ]
@@ -44,9 +44,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes)
-  ],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class TabsPageRoutingModule {}

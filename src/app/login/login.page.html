@@ -1,28 +1,32 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col class="ion-text-center">
-        <ion-button size="large" color="primary" routerDirection="forward" routerLink="/tabs">
-          Go to Tabs w/o Login
-        </ion-button>
-      </ion-col>
+      <ion-col class="ion-text-center"> </ion-col>
     </ion-row>
     <ion-row>
       <ion-col class="ion-text-center">
-        <ion-button size="large" color="primary" routerDirection="forward" routerLink="/tabs" (click)="auth.anonymousLogin()">
+        <ion-button
+          size="large"
+          color="primary"
+          routerDirection="forward"
+          routerLink="/tabs"
+          (click)="auth.anonymousLogin()"
+        >
           Sign-In Anon
         </ion-button>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col>
-            
+      <ion-col class="ion-text-center">
+        <ion-button
+          size="large"
+          color="primary"
+          routerDirection="forward"
+          routerLink="/tabs"
+          (click)="auth.googleLogin()"
+        >
+          Sign-In Google
+        </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

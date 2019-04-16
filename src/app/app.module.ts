@@ -5,6 +5,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,7 +21,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
 
 import { IonicStorageModule } from '@ionic/storage';
-
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -32,11 +33,14 @@ import { IonicStorageModule } from '@ionic/storage';
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireFunctionsModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule
   ],
 
   providers: [
     Firebase,
+    GooglePlus,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

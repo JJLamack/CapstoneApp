@@ -7,14 +7,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DbService {
-
-  constructor(private afs: AngularFirestore) { }
+  constructor(private afs: AngularFirestore) {}
 
   /**
-   * 
-   * @param {} path 
-   * @param {} query optional parameter
-   * 
+   * @param path designates which collection to pull the list from
+   * @param query optional parameter
+   *
    * .collection method references the data in firestore
    * .snapshotChanges returns the data as an Observable
    * .pipe sends the Observable to a different function in this case maps
@@ -22,20 +20,20 @@ export class DbService {
    */
   collection$(path, query?) {
     return this.afs
-      .collection(path,query)
+      .collection(path, query)
       .snapshotChanges()
-      .pipe( 
+      .pipe(
         map(actions => {
           return actions.map(a => {
             const data: Object = a.payload.doc.data();
             const id = a.payload.doc.id;
-            return { id, ...data};
+            return { id, ...data };
           });
         })
       );
   }
 
-  doc$(path): Observable<any> {
+  doc$(path: string): Observable<any> {
     return this.afs
       .doc(path)
       .snapshotChanges()
@@ -47,16 +45,15 @@ export class DbService {
   }
 
   /**
-   * @param {string} path 'collection' or 'collection/docID'
-   * @param {object} data new data 
-   * 
+   * @param path 'collection' or 'collection/docID'
+   * @param data new data to be added to
+   *
    * Creates or updates data on a collection or document
    * merge in else is for if a doc/{id} exists it will combine the old and the new
    */
   updateAt(path: string, data: Object): Promise<any> {
-    
     const segments = path.split('/').filter(v => v);
-    if(segments.length % 2){
+    if (segments.length % 2) {
       // Odd is always a collection
       return this.afs.collection(path).add(data);
     } else {
@@ -66,9 +63,9 @@ export class DbService {
   }
 
   /**
-   * 
-   * @param {string} path path to document
-   * 
+   *
+   * @param path path to document
+   *
    * Deletes document from firestore
    */
   delete(path) {

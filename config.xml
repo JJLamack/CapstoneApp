@@ -2,7 +2,7 @@
 <widget id="com.unknown.trivia" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Unknown Trivia</name>
     <description>Your one stop trivia game</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+    <author email="joshua.lamack@snc.edu" href="http://http://compsci02.snc.edu/cs460/2019/lamajj">Joshua Lamack</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -88,4 +88,7 @@
     <plugin name="cordova-sqlite-storage" spec="3.2.0" />
     <engine name="android" spec="7.1.4" />
     <engine name="ios" spec="4.5.5" />
+    <plugin name="cordova-plugin-googleplus" spec="7.0.1">
+        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.543713222320-he45fgoi62c0c1nqv1i7ssplt70eoarj" />
+    </plugin>
 </widget>

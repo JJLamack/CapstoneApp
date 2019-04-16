@@ -4,8 +4,31 @@
       Lobby
     </ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    
+<ion-content padding>
+  <ion-list>
+    <ion-card
+      *ngFor="let lobby of (lobbies | async); trackBy: trackbyId"
+      (click)="gameStart()"
+    >
+      <ion-card-header>
+        <ion-card-title>
+          {{ lobby.title }}
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-label> Users In Lobby: </ion-label>
+        <ion-note> {{ lobby.uids.length }}</ion-note>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+  <ion-fab horizontal="end" vertical="bottom">
+    <ion-fab-button (click)="makeLobby()">
+      <ion-icon size="large" name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

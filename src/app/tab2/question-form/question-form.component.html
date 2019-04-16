@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title *ngIf="!question">Create New Question</ion-title>
+    <ion-title *ngIf="question">Update {{ question.id }}</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <form [formGroup]="questionForm" (ngSubmit)="createQuestion()">
+      <ion-row>
+        <ion-col>
+          <ion-label>Question:</ion-label>
+          <ion-textarea
+            formControlName="question"
+            rows="2"
+            debounce="2"
+            spellcheck="True"
+            placeholder="Enter a question here..."
+            autofocus="True"
+            min="1"
+            max="250"
+          ></ion-textarea>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-list>
+            <ion-label>
+              Answers:
+            </ion-label>
+            <ion-radio-group (ionChange)="setCorrect($event)">
+              <div formArrayName="answers">
+                <ion-item
+                  *ngFor="let answer of answerForms.controls; let i = index"
+                  [formGroupName]="i"
+                >
+                  <ion-input
+                    formControlName="ans"
+                    spellcheck="True"
+                    placeholder="Enter an answer..."
+                    min="1"
+                    max="100"
+                  ></ion-input>
+                  <ion-radio
+                    *ngIf="question"
+                    slot="start"
+                    formControlName="idx"
+                    [checked]="i === this.question.correct"
+                  ></ion-radio>
+                  <ion-radio
+                    *ngIf="!question"
+                    slot="start"
+                    formControlName="idx"
+                  ></ion-radio>
+                </ion-item>
+              </div>
+            </ion-radio-group>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <ion-button
+            fill="outline"
+            expand="block"
+            color="primary"
+            (click)="getPhoto()"
+          >
+            <ion-icon name="cloud-upload"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <ion-button expand="block" color="danger" (click)="closeModal()"
+            >Cancel</ion-button
+          >
+        </ion-col>
+        <ion-col class="ion-text-center">
+          <ion-button
+            expand="block"
+            color="primary"
+            [disabled]="questionForm.invalid"
+            type="submit"
+          >
+            {{ question ? "Update!" : "Create!" }}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+</ion-content>
