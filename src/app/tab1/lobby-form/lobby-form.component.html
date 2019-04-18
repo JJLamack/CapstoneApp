@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Create New Game Lobby</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close"></ion-icon
+      ></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <form [formGroup]="lobbyForm" (ngSubmit)="createLobby()">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Title:</ion-label>
+            <ion-input
+              formControlName="title"
+              spellcheck="true"
+              placeholder="Enter lobby title here..."
+              autofocus="true"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item-group>
+            <ion-item class="ion-text-center" lines="none">
+              <ion-label>Question Timer</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-range
+                min="5"
+                max="120"
+                pin="true"
+                step="5"
+                snaps="true"
+                formControlName="questionTimerLength"
+              >
+                <ion-icon
+                  slot="start"
+                  name="speedometer"
+                  size="small"
+                ></ion-icon>
+                <ion-icon slot="end" name="speedometer" size="large"></ion-icon>
+              </ion-range>
+            </ion-item>
+          </ion-item-group>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-select
+            placeholder="Pick Quiz Questions"
+            [compareWith]="compareQuestions"
+            [interfaceOptions]="actionOptions"
+            (ionChange)="setQuestions($event)"
+            multiple="true"
+          >
+            <ion-select-option
+              *ngFor="let question of (questions | async); let i = index"
+              [value]="question.id"
+            >
+              {{ question.question }}
+            </ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <ion-button expand="block" color="danger" (click)="closeModal()">
+            Cancel
+          </ion-button>
+        </ion-col>
+        <ion-col class="ion-text-center">
+          <ion-button
+            expand="block"
+            color="primary"
+            [disabled]="lobbyForm.invalid"
+            (click)="createLobby()"
+            routerDirection="forward"
+            routerLink="/lobby"
+          >
+            Create!
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+</ion-content>

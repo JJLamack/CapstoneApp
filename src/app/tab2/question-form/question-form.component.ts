@@ -27,7 +27,7 @@ export class QuestionFormComponent implements OnInit {
     const data = {
       question: '',
       correct: null,
-      answers: ['Answer One', 'Answer Two', 'Answer Three', 'Answer Four'],
+      answers: ['', '', '', ''],
       photoURL: '',
       ...this.question
     };
@@ -82,7 +82,7 @@ export class QuestionFormComponent implements OnInit {
     const uid = await this.auth.uid();
     const id = this.question ? this.question.id : '';
     const data = {
-      uid,
+      creator: uid,
       createdAt: Date.now(),
       ...this.question,
       correct: this.questionForm.get('correct').value,
@@ -95,8 +95,8 @@ export class QuestionFormComponent implements OnInit {
       question: this.questionForm.get('question').value,
       photoURL: ''
     };
-    console.log(data);
-    this.db.updateAt(`questions/${id}`, data);
+
+    await this.db.updateAt(`questions/${id}`, data);
     this.modal.dismiss();
     this.presentToast('Question is uploaded');
   }

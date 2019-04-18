@@ -35,7 +35,8 @@ export class Tab2Page implements OnInit {
     console.log('presenting question form...');
     const modal = await this.modal.create({
       component: QuestionFormComponent,
-      componentProps: { question }
+      componentProps: { question },
+      backdropDismiss: false
     });
     return await modal.present();
   }
