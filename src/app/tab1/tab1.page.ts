@@ -3,8 +3,9 @@ import { AuthService } from '../services/auth.service';
 import { DbService } from '../services/db.service';
 import { switchMap } from 'rxjs/operators';
 
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { LobbyFormComponent } from './lobby-form/lobby-form.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -16,7 +17,9 @@ export class Tab1Page implements OnInit {
   constructor(
     public auth: AuthService,
     public db: DbService,
-    public modal: ModalController
+    public modal: ModalController,
+    public alertController: AlertController,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -42,11 +45,33 @@ export class Tab1Page implements OnInit {
     return await modal.present();
   }
 
-  joinLobby() {
+  joinLobby(id: string) {
     console.log('attempting to join lobby');
   }
 
   categoryFilter() {
     console.log('attempting to filter based on category');
+  }
+
+  async showAlert(lobby: any) {
+    const uid = await this.auth.uid();
+    const alert = await this.alertController.create({
+      header: `Join ${lobby.title} Lobby`,
+      message:
+        'Do you wish join the lobby and take on your follow trivia enthusiats?',
+      buttons: [
+        'No',
+        {
+          text: 'Join',
+          handler: () => {
+            console.log(`Joining Lobby id: ${lobby.id}`);
+            lobby.uids.push(uid);
+            this.db.updateAt(`lobbies/${lobby.id}`, lobby);
+            this.router.navigate([`/quiz/${lobby.id}`]);
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 }

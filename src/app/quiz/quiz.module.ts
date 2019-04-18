@@ -10,12 +10,19 @@ import { QuestionComponent } from './question/question.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: QuizPage
-  },
-  {
     path: ':id',
-    component: QuestionComponent
+    component: QuizPage,
+    children: [
+      {
+        path: 'question',
+        children: [
+          {
+            path: ':id',
+            component: QuestionComponent
+          }
+        ]
+      }
+    ]
   }
 ];
 

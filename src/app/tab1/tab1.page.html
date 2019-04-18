@@ -18,7 +18,7 @@
   <ion-list>
     <ion-card
       *ngFor="let lobby of (lobbies | async); trackBy: trackbyId"
-      (click)="gameStart()"
+      (click)="showAlert(lobby)"
     >
       <ion-card-header>
         <ion-card-title>
