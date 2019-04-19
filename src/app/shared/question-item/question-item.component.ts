@@ -7,9 +7,11 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class QuestionItemComponent implements OnInit {
   @Input() questionId: string;
-  @Input() question$: any;
+  question$: any;
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(`User: ${this.questionId} initialized`);
+  }
 }

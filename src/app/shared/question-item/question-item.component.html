@@ -1,8 +1,6 @@
 <ng-container *ngIf="(question$ | async) as question; else skeleton">
   <ion-item>
-    <ion-item lines="none">
-      <ion-label>{{ question.question }}</ion-label>
-    </ion-item>
+    <ion-label>{{ question.question }}</ion-label>
     <ion-reorder slot="end"></ion-reorder>
   </ion-item>
 </ng-container>

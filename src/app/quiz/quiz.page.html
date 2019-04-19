@@ -1,19 +1,55 @@
 <ng-container *ngIf="(qs.quiz$.data | async) as lobby">
   <ion-header>
     <ion-toolbar>
-      <ion-title>quiz</ion-title>
+      <ion-title *ngIf="lobby.creator === userId">
+        {{ lobby.title }} Quiz
+      </ion-title>
+      <ion-title *ngIf="lobby.creator !== userId">
+        {{ lobby.title }} Lobby
+      </ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
     <ion-grid>
+      <ion-row *ngIf="lobby.creator === userId">
+        <ion-col>
+          <ion-list>
+            <ion-list-header> Customize Question Order </ion-list-header>
+            <ion-reorder-group
+              (ionItemReorder)="reorderQuestions($event, lobby)"
+              disabled="false"
+            >
+              <div *ngFor="let question of lobby.qids">
+                <app-question-item [questionId]="question"></app-question-item>
+              </div>
+            </ion-reorder-group>
+          </ion-list>
+        </ion-col>
+      </ion-row>
       <ion-row>
         <ion-col>
-          <ion-button expand="block" (click)="leaveLobby(lobby)">
-            Exit Lobby
-          </ion-button>
+          <ion-list>
+            <ion-list-header> Trivia Enthusiats </ion-list-header>
+            <div *ngFor="let userId of lobby.uids"></div>
+          </ion-list>
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-content>
+
+  <ion-footer>
+    <ion-toolbar>
+      <ion-buttons slot="primary" *ngIf="lobby.creator === userId">
+        <ion-button expand="block" size="large" color="primary">
+          Start Quiz
+        </ion-button>
+      </ion-buttons>
+      <ion-buttons slot="secondary">
+        <ion-button expand="block" (click)="leaveLobby(lobby)">
+          Exit Lobby
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
 </ng-container>

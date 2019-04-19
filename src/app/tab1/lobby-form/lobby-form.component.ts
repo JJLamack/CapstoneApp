@@ -75,7 +75,6 @@ export class LobbyFormComponent implements OnInit {
   }
 
   async createLobby() {
-    console.log('Create new Lobby');
     const uid = await this.auth.uid();
     const id = '';
     const data = {
@@ -85,13 +84,10 @@ export class LobbyFormComponent implements OnInit {
       ...this.lobbyForm.value
     };
 
-    for (const qid of this.lobbyForm.value.qids) {
-      await this.qs.addQuestionObs(qid);
-    }
     const result = await this.db.updateAt(`lobbies/${id}`, data);
     console.log(result.id);
     this.modal.dismiss();
-    this.router.navigate(['/lobby', result.id]);
+    this.router.navigate([`/quiz`, result.id]);
   }
 
   async closeModal() {

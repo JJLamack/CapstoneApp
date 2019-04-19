@@ -23,59 +23,69 @@
               </ion-item>
             </ion-card-header>
             <ion-card-content>
-              <ion-item>
+              <ion-item lines="none">
+                <ion-label> Username: </ion-label>
+                <ion-input
+                  placeholder="Enter Username..."
+                  [value]="user.userName"
+                >
+                </ion-input>
+              </ion-item>
+              <ion-item lines="none">
                 <ion-label> Email: {{ user.email || "unknown" }} </ion-label>
               </ion-item>
             </ion-card-content>
           </ion-card>
         </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col class="ion-text-center">
-          <ion-item>
-            <ion-label>Wins</ion-label>
-            <ion-label>
-              {{ user.wins || "0" }}
-            </ion-label>
-          </ion-item>
-        </ion-col>
-        <ion-col class="ion-text-center">
-          <ion-item>
-            <ion-label>Losses</ion-label>
-            <ion-label>
-              {{ user.losses || "0" }}
-            </ion-label>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col class="ion-text-center">
-          <ion-item>
-            <ion-label>Correct</ion-label>
-            <ion-label>
-              {{ user.questionsCorrect || "0" }}
-            </ion-label>
-          </ion-item>
-        </ion-col>
-        <ion-col class="ion-text-center">
-          <ion-item>
-            <ion-label>In-Correct</ion-label>
-            <ion-label>
-              {{ user.questionsWrong || "0" }}
-            </ion-label>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-label>Games Created</ion-label>
-            <ion-label class="ion-text-center">
-              {{ user.lobbiesCreated || "0" }}
-            </ion-label>
-          </ion-item>
-        </ion-col>
-      </ion-row>
+      <ng-container *ngIf="!user.isAnonymous">
+        <ion-row>
+          <ion-col class="ion-text-center">
+            <ion-item>
+              <ion-label>Wins</ion-label>
+              <ion-label>
+                {{ user.wins || "0" }}
+              </ion-label>
+            </ion-item>
+          </ion-col>
+          <ion-col class="ion-text-center">
+            <ion-item>
+              <ion-label>Losses</ion-label>
+              <ion-label>
+                {{ user.losses || "0" }}
+              </ion-label>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-text-center">
+            <ion-item>
+              <ion-label>Correct</ion-label>
+              <ion-label>
+                {{ user.questionsCorrect || "0" }}
+              </ion-label>
+            </ion-item>
+          </ion-col>
+          <ion-col class="ion-text-center">
+            <ion-item>
+              <ion-label>In-Correct</ion-label>
+              <ion-label>
+                {{ user.questionsWrong || "0" }}
+              </ion-label>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>Games Created</ion-label>
+              <ion-label class="ion-text-center">
+                {{ user.lobbiesCreated || "0" }}
+              </ion-label>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ng-container>
       <ion-row>
         <ion-col class="ion-text-center">
           <ion-button
@@ -124,52 +134,6 @@
               ></ion-skeleton-text>
             </ion-card-content>
           </ion-card>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col class="ion-text-center">
-          <ion-item>
-            <ion-label>Wins</ion-label>
-            <ion-label>
-              <ion-skeleton-text animated></ion-skeleton-text>
-            </ion-label>
-          </ion-item>
-        </ion-col>
-        <ion-col class="ion-text-center">
-          <ion-item>
-            <ion-label>Losses</ion-label>
-            <ion-label>
-              <ion-skeleton-text animated></ion-skeleton-text>
-            </ion-label>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col class="ion-text-center">
-          <ion-item>
-            <ion-label>Correct</ion-label>
-            <ion-label>
-              <ion-skeleton-text animated></ion-skeleton-text>
-            </ion-label>
-          </ion-item>
-        </ion-col>
-        <ion-col class="ion-text-center">
-          <ion-item>
-            <ion-label>In-Correct</ion-label>
-            <ion-label>
-              <ion-skeleton-text animated></ion-skeleton-text>
-            </ion-label>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-label>Games Created</ion-label>
-            <ion-label class="ion-text-center">
-              <ion-skeleton-text animated></ion-skeleton-text>
-            </ion-label>
-          </ion-item>
         </ion-col>
       </ion-row>
     </ng-template>

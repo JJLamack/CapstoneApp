@@ -3,10 +3,9 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule' },
-  { path: 'login', loadChildren: './login/login.module#LoginPageModule'},
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'lobby', loadChildren: './lobby/lobby.module#LobbyPageModule' },
-  { path: 'quiz', loadChildren: './quiz/quiz.module#QuizPageModule' },
+  { path: 'quiz', loadChildren: './quiz/quiz.module#QuizPageModule' }
 ];
 @NgModule({
   imports: [

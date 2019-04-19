@@ -45,30 +45,68 @@ export class Tab1Page implements OnInit {
     return await modal.present();
   }
 
-  joinLobby(id: string) {
-    console.log('attempting to join lobby');
-  }
-
   categoryFilter() {
     console.log('attempting to filter based on category');
   }
 
-  async showAlert(lobby: any) {
-    const uid = await this.auth.uid();
+  async showAlert(lobby: any, user: any) {
     const alert = await this.alertController.create({
+      translucent: true,
+      backdropDismiss: false,
       header: `Join ${lobby.title} Lobby`,
       message:
-        'Do you wish join the lobby and take on your follow trivia enthusiats?',
+        'Do you wish join the lobby and take on your fellow trivia enthusiats?',
       buttons: [
         'No',
         {
           text: 'Join',
-          handler: () => {
-            console.log(`Joining Lobby id: ${lobby.id}`);
-            lobby.uids.push(uid);
-            this.db.updateAt(`lobbies/${lobby.id}`, lobby);
+          handler: data => {
+            const idx = lobby.uids.indexOf(user.uid);
+            if (idx === -1) {
+              lobby.uids.push(user.uid);
+              this.db.updateAt(`lobbies/${lobby.id}`, lobby);
+            }
+            if (!user.isAnonymous) {
+              if (!user.gamesPlayed) {
+                const wins = 0;
+                const losses = 0;
+                const lobbiesCreated = 0;
+                const questionsWrong = 0;
+                const questionsCorrect = 0;
+                const gamesPlayed = 0;
+                const userName = data.UserName;
+                const userData = {
+                  ...user,
+                  wins,
+                  losses,
+                  lobbiesCreated,
+                  questionsWrong,
+                  questionsCorrect,
+                  gamesPlayed,
+                  userName
+                };
+                this.db.updateAt(`users/${user.id}`, userData);
+              } else {
+                if (user.userName !== data.UserName) {
+                  const userName = data.UserName;
+                  const userData = {
+                    ...user,
+                    userName
+                  };
+                  this.db.updateAt(`users/${user.id}`, userData);
+                }
+              }
+            }
             this.router.navigate([`/quiz/${lobby.id}`]);
           }
+        }
+      ],
+      inputs: [
+        {
+          name: 'UserName',
+          type: 'text',
+          value: user.userName,
+          placeholder: 'Enter a UserName...'
         }
       ]
     });

@@ -15,10 +15,10 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
+  <ion-list *ngIf="(auth.user$ | async) as user">
     <ion-card
       *ngFor="let lobby of (lobbies | async); trackBy: trackbyId"
-      (click)="showAlert(lobby)"
+      (click)="showAlert(lobby, user)"
     >
       <ion-card-header>
         <ion-card-title>
@@ -31,7 +31,7 @@
       </ion-card-content>
     </ion-card>
   </ion-list>
-  <ion-fab horizontal="end" vertical="bottom">
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
     <ion-fab-button (click)="makeLobby()">
       <ion-icon size="large" name="add"></ion-icon>
     </ion-fab-button>

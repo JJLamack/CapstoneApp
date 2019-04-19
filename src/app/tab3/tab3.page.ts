@@ -15,7 +15,7 @@ export class Tab3Page implements OnInit {
 
   ngOnInit() {
     this.user = this.auth.user$.pipe(
-      switchMap(user => this.db.doc$(`users/${user.uid}`)),
+      switchMap(user => this.db.doc$(`users/${user.id}`)),
       shareReplay(1)
     );
   }
