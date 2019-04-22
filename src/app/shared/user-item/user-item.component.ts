@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import { DbService } from '../../services/db.service';
 @Component({
   selector: 'app-user-item',
   templateUrl: './user-item.component.html',
@@ -7,7 +7,10 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class UserItemComponent implements OnInit {
   @Input() userId: string;
-  constructor() {}
+  user$;
+  constructor(private db: DbService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.user$ = this.db.doc$(`users/${this.userId}`);
+  }
 }

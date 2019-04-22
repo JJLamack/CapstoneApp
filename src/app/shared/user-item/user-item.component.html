@@ -1,3 +1,10 @@
-<p>
-  user-item works!
-</p>
+<ng-container *ngIf="(user$ | async) as user">
+  <ion-item>
+    <ion-avatar>
+      <img [src]="user.photoURL || 'assets/icon/anon.png'" />
+    </ion-avatar>
+    <ion-label>
+      {{ user.userName }}
+    </ion-label>
+  </ion-item>
+</ng-container>

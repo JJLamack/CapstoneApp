@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { QuizPage } from './quiz.page';
 import { QuestionComponent } from './question/question.component';
 import { QuestionItemComponent } from '../shared/question-item/question-item.component';
+import { UserItemComponent } from '../shared/user-item/user-item.component';
 
 const routes: Routes = [
   {
@@ -18,7 +19,7 @@ const routes: Routes = [
         path: 'question',
         children: [
           {
-            path: ':id',
+            path: ':qid',
             component: QuestionComponent
           }
         ]
@@ -34,6 +35,11 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [QuizPage, QuestionComponent, QuestionItemComponent]
+  declarations: [
+    QuizPage,
+    QuestionComponent,
+    QuestionItemComponent,
+    UserItemComponent
+  ]
 })
 export class QuizPageModule {}
