@@ -20,10 +20,13 @@
         <ion-label> {{ question.question }}</ion-label>
       </ion-item>
       <ion-item-options>
-        <ion-item-option (click)="presentQuestionForm(question)">
+        <ion-item-option
+          (click)="presentQuestionForm(question)"
+          color="warning"
+        >
           <ion-icon name="create"> </ion-icon>
         </ion-item-option>
-        <ion-item-option (click)="deleteQuestion(question)">
+        <ion-item-option (click)="deleteQuestion(question)" color="danger">
           <ion-icon name="trash"> </ion-icon>
         </ion-item-option>
       </ion-item-options>

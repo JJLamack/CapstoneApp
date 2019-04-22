@@ -80,6 +80,7 @@ export class LobbyFormComponent implements OnInit {
     const data = {
       creator: uid,
       createdAt: Date.now(),
+      currentQuestion: 0,
       uids: [uid],
       ...this.lobbyForm.value
     };

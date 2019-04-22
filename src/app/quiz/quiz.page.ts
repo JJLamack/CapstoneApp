@@ -65,7 +65,7 @@ export class QuizPage implements OnInit {
   }
 
   async startQuiz(lobby: any) {
-    const status = 'inGame';
+    const status = 'preGame';
     const startTime = Date.now() + 15000;
     const data = {
       ...lobby,
@@ -75,10 +75,10 @@ export class QuizPage implements OnInit {
     await this.db.updateAt(`lobbies/${lobby.id}`, data);
   }
 
-  initTimer(status: string, startTime: number) {
-    if (status === 'inGame') {
+  initTimer(lobby: any) {
+    if (status === 'preGame') {
       if (this.initiateTimer) {
-        this.countdown$ = this.setupCountdown(1000, startTime);
+        this.countdown$ = this.setupCountdown(1000, lobby);
         this.initiateTimer = false;
       }
       return true;
@@ -87,11 +87,11 @@ export class QuizPage implements OnInit {
     }
   }
 
-  setupCountdown(intervalTime: number, startTime: number) {
+  setupCountdown(intervalTime: number, lobby: any) {
     return new Observable((observer: Observer<number>) => {
       const timer = setInterval(() => {
         const now = Date.now();
-        const seconds = Math.floor((startTime - now) / 1000);
+        const seconds = Math.floor((lobby.startTime - now) / 1000);
         if (seconds < 0) {
           observer.complete();
         }
@@ -100,6 +100,12 @@ export class QuizPage implements OnInit {
 
       return () => {
         clearInterval(timer);
+        const status = 'inGame';
+        const data = {
+          ...lobby,
+          status
+        };
+        this.db.updateAt(`lobbies/${lobby.id}`, data);
         this.router.navigate([`/quiz`, this.quizId, `question`]);
       };
     });

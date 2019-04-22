@@ -63,7 +63,7 @@
       </ion-toolbar>
     </ion-footer>
   </ng-container>
-  <ng-container *ngIf="initTimer(lobby.status, lobby.startTime)">
+  <ng-container *ngIf="initTimer(lobby); else runQuiz">
     <ion-content>
       <ion-grid>
         <ion-row>
@@ -81,4 +81,9 @@
       </ion-grid>
     </ion-content>
   </ng-container>
+  <ng-template #runQuiz>
+    <app-question
+      [questionId]="lobby.qids[lobby.currentQuestion]"
+    ></app-question>
+  </ng-template>
 </ng-container>

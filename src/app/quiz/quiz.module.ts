@@ -23,6 +23,10 @@ const routes: Routes = [
             component: QuestionComponent
           }
         ]
+      },
+      {
+        path: 'leaderboard',
+        component: LeaderboardComponent
       }
     ]
   }
