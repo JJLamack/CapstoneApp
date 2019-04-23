@@ -8,7 +8,7 @@
 
 <ion-content>
   <ion-grid>
-    <ng-container *ngIf="(this.user | async) as user; else login">
+    <ng-container *ngIf="(this.user$ | async) as user; else login">
       <ion-row>
         <ion-col>
           <ion-card>
@@ -25,11 +25,17 @@
             <ion-card-content>
               <ion-item lines="none">
                 <ion-label> Username: </ion-label>
-                <ion-input
-                  placeholder="Enter Username..."
-                  [value]="user.userName"
+                <ion-item
+                  lines="none"
+                  detail="true"
+                  detailIcon="create"
+                  color="light"
+                  (click)="presentUserNamePrompt(user)"
                 >
-                </ion-input>
+                  <ion-label position="fixed">
+                    {{ user.userName }}
+                  </ion-label>
+                </ion-item>
               </ion-item>
               <ion-item lines="none">
                 <ion-label> Email: {{ user.email || "unknown" }} </ion-label>
@@ -93,6 +99,7 @@
             (click)="auth.signOut()"
             routerDirection="root"
             expand="block"
+            color="tertiary"
           >
             Logout
           </ion-button>

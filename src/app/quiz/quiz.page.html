@@ -1,89 +1,62 @@
 <ng-container *ngIf="(qs.quiz$ | async) as lobby">
-  <ng-container *ngIf="lobby.status === 'pending'">
-    <ion-header>
-      <ion-toolbar>
-        <ion-title *ngIf="lobby.creator === userId">
-          {{ lobby.title }} Quiz
-        </ion-title>
-        <ion-title *ngIf="lobby.creator !== userId">
-          {{ lobby.title }} Lobby
-        </ion-title>
-      </ion-toolbar>
-    </ion-header>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title *ngIf="lobby.creator === userId">
+        {{ lobby.title }} Quiz
+      </ion-title>
+      <ion-title *ngIf="lobby.creator !== userId">
+        {{ lobby.title }} Lobby
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-    <ion-content>
-      <ion-grid>
-        <ion-row *ngIf="lobby.creator === userId">
-          <ion-col>
-            <ion-list>
-              <ion-list-header> Customize Question Order </ion-list-header>
-              <ion-reorder-group
-                (ionItemReorder)="reorderQuestions($event, lobby)"
-                disabled="false"
-              >
-                <div *ngFor="let question of lobby.qids">
-                  <app-question-item
-                    [questionId]="question"
-                  ></app-question-item>
-                </div>
-              </ion-reorder-group>
-            </ion-list>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-list>
-              <ion-list-header> Trivia Enthusiats </ion-list-header>
-              <div *ngFor="let userId of lobby.uids">
-                <app-user-item [userId]="userId"></app-user-item>
+  <ion-content>
+    <ion-grid>
+      <ion-row *ngIf="lobby.creator === userId">
+        <ion-col>
+          <ion-list>
+            <ion-list-header> Customize Question Order </ion-list-header>
+            <ion-reorder-group
+              (ionItemReorder)="reorderQuestions($event, lobby)"
+              disabled="false"
+            >
+              <div *ngFor="let question of lobby.qids">
+                <app-question-item [questionId]="question"></app-question-item>
               </div>
-            </ion-list>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-content>
+            </ion-reorder-group>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-list>
+            <ion-list-header> Trivia Enthusiats </ion-list-header>
+            <div *ngFor="let userId of lobby.uids">
+              <app-user-item [userId]="userId"></app-user-item>
+            </div>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
 
-    <ion-footer>
-      <ion-toolbar>
-        <ion-buttons slot="primary" *ngIf="lobby.creator === userId">
-          <ion-button
-            expand="block"
-            size="large"
-            color="primary"
-            (click)="startQuiz(lobby)"
-          >
-            Start Quiz
-          </ion-button>
-        </ion-buttons>
-        <ion-buttons slot="secondary">
-          <ion-button expand="block" (click)="leaveLobby(lobby)">
-            Exit Lobby
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-footer>
-  </ng-container>
-  <ng-container *ngIf="initTimer(lobby); else runQuiz">
-    <ion-content>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-item lines="none">
-              <ion-label *ngIf="(countdown$ | async) as countdown">
-                {{ countdown }}
-              </ion-label>
-            </ion-item>
-            <ion-button expand="block" (click)="leaveLobby(lobby)">
-              Exit Lobby
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-content>
-  </ng-container>
-  <ng-template #runQuiz>
-    <app-question
-      [questionId]="lobby.qids[lobby.currentQuestion]"
-    ></app-question>
-  </ng-template>
+  <ion-footer>
+    <ion-toolbar>
+      <ion-buttons slot="primary" *ngIf="lobby.creator === userId">
+        <ion-button
+          expand="block"
+          size="large"
+          color="primary"
+          (click)="startQuiz(lobby)"
+        >
+          Start Quiz
+        </ion-button>
+      </ion-buttons>
+      <ion-buttons slot="secondary">
+        <ion-button expand="block" (click)="leaveLobby(lobby)">
+          Exit Lobby
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
 </ng-container>

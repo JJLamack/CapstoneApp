@@ -9,6 +9,7 @@ import { QuizPage } from './quiz.page';
 import { QuestionComponent } from './question/question.component';
 import { QuestionItemComponent } from '../shared/question-item/question-item.component';
 import { UserItemComponent } from '../shared/user-item/user-item.component';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 
 const routes: Routes = [
   {
@@ -19,16 +20,16 @@ const routes: Routes = [
         path: 'question',
         children: [
           {
-            path: ':qid',
+            path: ':uid',
             component: QuestionComponent
           }
         ]
-      },
-      {
-        path: 'leaderboard',
-        component: LeaderboardComponent
       }
     ]
+  },
+  {
+    path: '',
+    component: QuizPage
   }
 ];
 
@@ -43,7 +44,8 @@ const routes: Routes = [
     QuizPage,
     QuestionComponent,
     QuestionItemComponent,
-    UserItemComponent
+    UserItemComponent,
+    LeaderboardComponent
   ]
 })
 export class QuizPageModule {}

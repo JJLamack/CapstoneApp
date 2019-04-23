@@ -4,7 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { DbService } from '../../services/db.service';
 import { AuthService } from '../../services/auth.service';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, take, map } from 'rxjs/operators';
 import { QuizService } from '../../services/quiz.service';
 
 @Component({
@@ -28,6 +28,8 @@ export class LobbyFormComponent implements OnInit {
 
   questions;
   lobbyForm: FormGroup;
+  userForm: FormGroup;
+  user: any;
   actionOptions: any = {
     header: 'Select Questions'
   };
@@ -60,7 +62,27 @@ export class LobbyFormComponent implements OnInit {
       ],
       qids: this.fb.array([], Validators.required)
     });
-    this.lobbyForm.valueChanges.subscribe(console.log);
+    this.auth.user$
+      .pipe(
+        take(1),
+        map(u => u)
+      )
+      .toPromise()
+      .then(obj => {
+        this.user = obj;
+        console.log({ obj });
+        this.userForm.get('uName').setValue(obj.userName);
+      });
+    this.userForm = this.fb.group({
+      uName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(100)
+        ]
+      ]
+    });
   }
 
   addQid(questionID: string) {
@@ -75,7 +97,7 @@ export class LobbyFormComponent implements OnInit {
   }
 
   async createLobby() {
-    const uid = await this.auth.uid();
+    const uid = this.user.uid;
     const id = '';
     const data = {
       creator: uid,
@@ -84,7 +106,11 @@ export class LobbyFormComponent implements OnInit {
       uids: [uid],
       ...this.lobbyForm.value
     };
-
+    const userData = {
+      ...this.user,
+      userName: this.userForm.get('uName').value
+    };
+    this.db.updateAt(`users/${this.user.uid}`, userData);
     const result = await this.db.updateAt(`lobbies/${id}`, data);
     console.log(result.id);
     this.modal.dismiss();

@@ -53,6 +53,21 @@
       </ion-row>
       <ion-row>
         <ion-col>
+          <ion-item [formGroup]="userForm">
+            <ion-label>Username:</ion-label>
+            <ion-input
+              formControlName="uName"
+              spellcheck="true"
+              placeholder="Enter Username..."
+              autofocus="true"
+              minLength="1"
+              maxLength="100"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
           <ion-select
             placeholder="Pick Quiz Questions"
             [compareWith]="compareQuestions"
@@ -79,7 +94,7 @@
           <ion-button
             expand="block"
             color="primary"
-            [disabled]="lobbyForm.invalid"
+            [disabled]="lobbyForm.invalid || userForm.invalid"
             (click)="createLobby()"
             routerDirection="forward"
           >
