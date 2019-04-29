@@ -7,30 +7,27 @@ import { IonicModule } from '@ionic/angular';
 
 import { QuizPage } from './quiz.page';
 import { QuestionComponent } from './question/question.component';
-import { QuestionItemComponent } from '../shared/question-item/question-item.component';
-import { UserItemComponent } from '../shared/user-item/user-item.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
-
+import { SharedModule } from '../shared/shared.module';
+import { QuestionDetailComponent } from './question-detail/question-detail.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
 const routes: Routes = [
   {
-    path: ':id',
-    component: QuizPage,
-    children: [
-      {
-        path: 'question',
-        children: [
-          {
-            path: ':uid',
-            component: QuestionComponent
-          }
-        ]
-      }
-    ]
+    path: 'question/:uid',
+    component: QuestionComponent,
+  },
+  {
+    path: 'leaderboard',
+    component: LeaderboardComponent,
   },
   {
     path: '',
-    component: QuizPage
-  }
+    component: QuizPage,
+  },
+  {
+    path: ':id',
+    component: QuizPage,
+  },
 ];
 
 @NgModule({
@@ -38,14 +35,15 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedModule,
   ],
   declarations: [
     QuizPage,
     QuestionComponent,
-    QuestionItemComponent,
-    UserItemComponent,
-    LeaderboardComponent
-  ]
+    LeaderboardComponent,
+    QuestionDetailComponent,
+    UserDetailComponent,
+  ],
 })
 export class QuizPageModule {}

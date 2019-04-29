@@ -1,0 +1,31 @@
+<ng-container *ngIf="this.question$ | async as question">
+  <ion-row>
+    <ion-col>
+      <ion-text>
+        <h2>{{ question.question }}</h2>
+      </ion-text>
+    </ion-col>
+  </ion-row>
+  <ng-container *ngIf="question.photoURL">
+    <ion-row>
+      <ion-col>
+        <ion-img class="center" [src]="question.photoURL"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ng-container>
+  <ion-row> </ion-row>
+  <ng-container *ngFor="let ans of question.answers; let i = index">
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-button
+          [fill]="'outline'"
+          [expand]="'block'"
+          [disabled]="disable"
+          (click)="ansSelected(question, ans)"
+        >
+          {{ ans }}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ng-container>
+</ng-container>

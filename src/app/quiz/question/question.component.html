@@ -1,3 +1,57 @@
-<p>
-  question works!
-</p>
+<ng-container *ngIf="this.quiz$ | async as quiz">
+  <ng-container *ngIf="this.user$ | async as user">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title> {{ quiz.title }} Quiz </ion-title>
+        <ion-buttons slot="secondary">
+          <ion-button (click)="exitQuiz(quiz)">
+            <ion-label>Exit</ion-label>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <ion-grid fixed>
+        <ng-container *ngIf="user.uid === quiz.creator; else guest">
+          <ng-container *ngIf="!leaderboard; else leader">
+            <app-question-detail
+              [questionId]="quiz.qids[quiz.currentQuestion]"
+              (selectedEvent)="ansSelected($event, quiz, user)"
+            >
+            </app-question-detail>
+          </ng-container>
+          <ng-template #leader>
+            <app-leaderboard
+              (nextQuestionEvent)="setNextQuestion($event, quiz)"
+              (finishQuizEvent)="exitQuiz(quiz)"
+              [lastQuestion]="last"
+              [quiz]="quiz"
+              [userId]="userId"
+            >
+            </app-leaderboard>
+          </ng-template>
+        </ng-container>
+        <ng-template #guest>
+          <ng-container *ngIf="quiz.status === 'inGame'; else board">
+            <app-question-detail
+              [questionId]="quiz.qids[quiz.currentQuestion]"
+              (selectedEvent)="ansSelected($event, quiz, user)"
+            >
+            </app-question-detail>
+          </ng-container>
+          <ng-template #board>
+            <app-leaderboard
+              (nextQuestionEvent)="setNextQuestion($event, quiz)"
+              (finishQuizEvent)="exitQuiz(quiz)"
+              [lastQuestion]="last"
+              [quiz]="quiz"
+              [userId]="userId"
+            >
+            </app-leaderboard>
+          </ng-template>
+        </ng-template>
+      </ion-grid>
+    </ion-content>
+  </ng-container>
+</ng-container>

@@ -3,10 +3,10 @@ import { DbService } from './db.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class QuizService {
-  quiz$: any;
+  quiz$: Observable<any>;
 
   constructor(private db: DbService) {}
 

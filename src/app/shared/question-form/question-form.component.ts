@@ -8,7 +8,7 @@ import { ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-question-form',
   templateUrl: './question-form.component.html',
-  styleUrls: ['./question-form.component.scss']
+  styleUrls: ['./question-form.component.scss'],
 })
 export class QuestionFormComponent implements OnInit {
   constructor(
@@ -16,7 +16,7 @@ export class QuestionFormComponent implements OnInit {
     private auth: AuthService,
     private fb: FormBuilder,
     public modal: ModalController,
-    public tc: ToastController
+    public tc: ToastController,
   ) {}
 
   question: any;
@@ -29,7 +29,7 @@ export class QuestionFormComponent implements OnInit {
       correct: null,
       answers: ['', '', '', ''],
       photoURL: '',
-      ...this.question
+      ...this.question,
     };
     // TODO: Add regex for a Question Mark at end of question or auto put there?
     this.questionForm = this.fb.group({
@@ -38,11 +38,11 @@ export class QuestionFormComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(1),
-          Validators.maxLength(250)
-        ]
+          Validators.maxLength(250),
+        ],
       ],
       correct: [data.correct, [Validators.required]],
-      answers: this.fb.array([], [Validators.required])
+      answers: this.fb.array([], [Validators.required]),
     });
 
     let i = 0;
@@ -64,11 +64,11 @@ export class QuestionFormComponent implements OnInit {
           [
             Validators.required,
             Validators.minLength(1),
-            Validators.maxLength(100)
-          ]
+            Validators.maxLength(100),
+          ],
         ],
-        idx: [index, []]
-      })
+        idx: [index, []],
+      }),
     );
   }
 
@@ -90,10 +90,10 @@ export class QuestionFormComponent implements OnInit {
         this.answerForms.at(0).get('ans').value,
         this.answerForms.at(1).get('ans').value,
         this.answerForms.at(2).get('ans').value,
-        this.answerForms.at(3).get('ans').value
+        this.answerForms.at(3).get('ans').value,
       ],
       question: this.questionForm.get('question').value,
-      photoURL: ''
+      photoURL: '',
     };
 
     await this.db.updateAt(`questions/${id}`, data);
@@ -109,7 +109,7 @@ export class QuestionFormComponent implements OnInit {
     const toast = await this.tc.create({
       message: mes,
       duration: 2000,
-      keyboardClose: true
+      keyboardClose: true,
     });
     toast.present();
   }

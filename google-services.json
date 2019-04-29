@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "543713222320-32ovug5i7ketjsnh82bg9lflob2g8i1d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.unknown.trivia",
+            "certificate_hash": "34051faf9de30c4256380cc4007faad90b4aed56"
+          }
+        },
+        {
           "client_id": "543713222320-7efpiqoii6ot6jsv7hvivsbbi3m2gvqe.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -25,15 +33,20 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543713222320-7efpiqoii6ot6jsv7hvivsbbi3m2gvqe.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "543713222320-he45fgoi62c0c1nqv1i7ssplt70eoarj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.unknown.trivia"
+              }
+            }
+          ]
         }
       }
     }

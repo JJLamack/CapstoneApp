@@ -1,5 +1,8 @@
 <ng-container *ngIf="(question$ | async) as question; else skeleton">
   <ion-item>
+    <ion-avatar slot="start">
+      <img [src]="question.photoURL || 'assets/icon/anon.png'" />
+    </ion-avatar>
     <ion-label>{{ question.question }}</ion-label>
     <ion-reorder slot="end"></ion-reorder>
   </ion-item>

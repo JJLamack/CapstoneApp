@@ -1,0 +1,36 @@
+<ion-list>
+  <ion-item-sliding
+    *ngFor="let item of (items | async); trackBy: trackbyId"
+    [disabled]="!editable"
+  >
+    <ion-item>
+      <ng-container *ngIf="selectable">
+        <ion-checkbox
+          slot="start"
+          (ionChange)="updateChecked($event)"
+          [value]="item.id"
+        >
+        </ion-checkbox>
+      </ng-container>
+      <ion-avatar slot="start">
+        <img [src]="item.photoURL || 'assets/icon/anon.png'" />
+      </ion-avatar>
+      <ion-label> {{ item.question }}</ion-label>
+    </ion-item>
+    <ion-item-options>
+      <ion-item-option (click)="presentEditForm(item)" color="warning">
+        <ion-icon name="create"></ion-icon>
+      </ion-item-option>
+      <ion-item-option (click)="deleteItem(item)" color="danger">
+        <ion-icon name="trash"></ion-icon>
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+</ion-list>
+<ng-container *ngIf="addable">
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button (click)="presentEditForm()">
+      <ion-icon size="large" name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ng-container>

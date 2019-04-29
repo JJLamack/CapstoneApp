@@ -1,0 +1,10 @@
+<ion-list>
+  <ion-reorder-group
+    (ionItemReorder)="reorderItems($event)"
+    [disabled]="disableReorder"
+  >
+    <div *ngFor="let question of questionIds">
+      <app-question-item [questionId]="question"></app-question-item>
+    </div>
+  </ion-reorder-group>
+</ion-list>

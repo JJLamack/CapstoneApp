@@ -12,7 +12,7 @@
 
 <ion-content>
   <ion-grid>
-    <form [formGroup]="questionForm" (ngSubmit)="createQuestion()">
+    <form ([formGroup])="(questionForm)" (ngSubmit)="createQuestion()">
       <ion-row>
         <ion-col>
           <ion-label>Question:</ion-label>
@@ -38,7 +38,7 @@
               <div formArrayName="answers">
                 <ion-item
                   *ngFor="let answer of answerForms.controls; let i = index"
-                  [formGroupName]="i"
+                  ([formGroupName])="(i)"
                 >
                   <ion-input
                     formControlName="ans"
@@ -83,12 +83,7 @@
           >
         </ion-col>
         <ion-col class="ion-text-center">
-          <ion-button
-            expand="block"
-            color="primary"
-            [disabled]="questionForm.invalid"
-            type="submit"
-          >
+          <ion-button expand="block" color="primary" type="submit">
             {{ question ? "Update!" : "Create!" }}
           </ion-button>
         </ion-col>

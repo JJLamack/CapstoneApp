@@ -4,16 +4,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Tab2Page } from './tab2.page';
-import { QuestionFormComponent } from './question-form/question-form.component';
+import { SharedModule } from '../shared/shared.module';
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild([{ path: '', component: Tab2Page }])
+    RouterModule.forChild([{ path: '', component: Tab2Page }]),
+    SharedModule,
   ],
-  declarations: [Tab2Page, QuestionFormComponent],
-  entryComponents: [QuestionFormComponent]
+  declarations: [Tab2Page],
+  entryComponents: [],
 })
 export class Tab2PageModule {}

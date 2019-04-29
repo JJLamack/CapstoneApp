@@ -68,20 +68,22 @@
       </ion-row>
       <ion-row>
         <ion-col>
-          <ion-select
-            placeholder="Pick Quiz Questions"
-            [compareWith]="compareQuestions"
-            [interfaceOptions]="actionOptions"
-            (ionChange)="setQuestions($event)"
-            multiple="true"
+          <ion-item
+            lines="none"
+            button="true"
+            detailIcon="add"
+            detail="true"
+            (click)="openQuestionSelect()"
           >
-            <ion-select-option
-              *ngFor="let question of (questions | async); let i = index"
-              [value]="question.id"
+            <ion-label>Questions:</ion-label>
+          </ion-item>
+          <ng-container *ngIf="questions.length > 0">
+            <app-question-reorder-list
+              [questionIds]="this.questions.slice(0)"
+              (reordered)="setQuestions($event)"
             >
-              {{ question.question }}
-            </ion-select-option>
-          </ion-select>
+            </app-question-reorder-list>
+          </ng-container>
         </ion-col>
       </ion-row>
       <ion-row>

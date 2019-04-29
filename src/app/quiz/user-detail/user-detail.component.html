@@ -1,0 +1,11 @@
+<ng-container *ngIf="user$ | async as user">
+  <ion-item>
+    <ion-avatar slot="start">
+      <img [src]="user.photoURL || 'assets/icon/anon.png'" />
+    </ion-avatar>
+    <ion-label>
+      {{ user.userName }}
+    </ion-label>
+    <ion-note slot="end" color="primary"> {{ points }}</ion-note>
+  </ion-item>
+</ng-container>

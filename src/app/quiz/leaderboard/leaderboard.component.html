@@ -1,3 +1,31 @@
-<p>
-  leaderboard works!
-</p>
+<ng-container *ngIf="this.userId == quiz.creator">
+  <ng-container *ngIf="!this.lastQuestion">
+    <ion-row>
+      <ion-col>
+        <ion-button
+          (click)="nextQuestion()"
+          [disabled]="quiz.status !== 'question'"
+          expand="block"
+        >
+          Next Question
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ng-container>
+</ng-container>
+<ng-container *ngIf="this.lastQuestion">
+  <ion-row>
+    <ion-col>
+      <ion-button (click)="finish()" expand="block">Finish</ion-button>
+    </ion-col>
+  </ion-row>
+</ng-container>
+
+<ion-row>
+  <ion-col>
+    <ng-container *ngFor="let uid of this.quiz.uids; let i = index">
+      <app-user-detail [userId]="quiz.uids[i]" [points]="quiz.points[i]">
+      </app-user-detail>
+    </ng-container>
+  </ion-col>
+</ion-row>

@@ -1,4 +1,8 @@
-<ng-container *ngIf="(qs.quiz$ | async) as lobby">
+<ng-container *ngIf="qs.quiz$ | async as lobby">
+  <ng-container *ngIf="lobby.creator !== userId">
+    <ng-container *ngIf="lobby.status === 'inGame' ? takeQuiz(lobby) : ''">
+    </ng-container>
+  </ng-container>
   <ion-header>
     <ion-toolbar>
       <ion-title *ngIf="lobby.creator === userId">
@@ -14,17 +18,8 @@
     <ion-grid>
       <ion-row *ngIf="lobby.creator === userId">
         <ion-col>
-          <ion-list>
-            <ion-list-header> Customize Question Order </ion-list-header>
-            <ion-reorder-group
-              (ionItemReorder)="reorderQuestions($event, lobby)"
-              disabled="false"
-            >
-              <div *ngFor="let question of lobby.qids">
-                <app-question-item [questionId]="question"></app-question-item>
-              </div>
-            </ion-reorder-group>
-          </ion-list>
+          <app-question-reorder-list [questionIds]="lobby.qids">
+          </app-question-reorder-list>
         </ion-col>
       </ion-row>
       <ion-row>
